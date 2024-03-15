@@ -1,0 +1,34 @@
+<% layout("layouts/boilerplate") %>
+<div class="row mt-3">
+    <h1><i class="fa-solid fa-right-to-bracket"></i><b>WONDER</b></h1>
+    <div class="col-10 offset-1 signup">    
+        <form action="/login" method="post" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="username" class="form-label"></label>
+                <input type="text" placeholder="Username" id="username" name="username" class="form-control" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Enter the username</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label"></label>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" id="password" name="password" class="form-control" required>
+                    <span class="input-group-text" id="eye-toggle" onclick="togglePasswordVisibility()">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Enter password to log-in</div>
+            </div>
+            <button type="submit" class="btn btn-primary signin">LOG IN</button>
+        </form>
+            <br>
+            <a href="#">Forgotten password?</a>     
+            <hr class="col-10 offset-1">
+            <form action="/signup" method="get">
+                <button type="submit" class="btn btn-success btn-lg offset-5 createaccount">SIGN UP</button>
+            </form>
+            
+       
+    </div>
+</div>

@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+ font-family: "Plus Jakarta Sans" ,sans-serif !important;
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+}
+
+.container{
+    flex: 1;
+}
+
+/* navabr */
+
+.navbar{
+    height: 3rem;
+    background-color: white;
+}
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+.navbar-nav a{
+    color: #222222 !important;
+}
+.f-info{
+    display: flex;
+    flex-wrap: wrap;
+    height: 4.5rem;
+    width: 100%;
+    background-color: #ebebeb;
+    align-items: center;
+    flex-direction: column;
+}
+.f-info-links a{
+    text-decoration: none;
+    color: #222 !important;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info-socials i {
+  font-size: 1.2rem;
+  margin-left: 1rem;
+}
+
+/* footer */
+.fa-facebook:hover{
+    color: blue;
+}
+.fa-instagram:hover{
+  color: #fe424d;
+}
+.fa-linkedin:hover{
+    color: blue;
+}
+
+/* card */  
+
+.card {
+    display: flex;
+    border: none !important; 
+    margin-bottom: 1rem;
+    color: #222;
+    margin-right: 0.5rem; /* Add margin to create space between cards */
+}
+.rupee-symbol{
+    text-decoration: underline;
+}
+.card-img-top {
+    border-radius: 1.5rem !important;
+}
+.listing-link{
+ text-decoration: none !important;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.15;
+    background-color: white;
+}
+
+
+.custom-card {
+    height: 20rem;
+    width: 18rem;
+    box-shadow: 6px 0 6px rgba(0, 0, 0, 0.1), -6px 0 6px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem !important;
+}
+}
+
+.custom-card .card-body {
+    flex: 1;
+}
+
+.custom-card .btn {
+    margin-bottom: 20px; 
+    border-radius: .5rem !important;
+    width: 80%;
+}
+.review-card{
+    box-shadow: 6px 0 6px rgba(0, 0, 0, 0.1), -6px 0 6px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+/* show.ejs */
+
+.show-img{
+    height: 40vh;
+}
+
+.signup{
+    height: 50vh;
+    width: 100vw;
+    background-color: #f4f1f1;
+}
+
+
+    
