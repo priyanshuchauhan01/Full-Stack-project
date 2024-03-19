@@ -16,17 +16,59 @@ body{
 
 /* navabr */
 
-.navbar{
-    height: 3rem;
+.navbar {
+    height: 5rem;
     background-color: white;
-}
+    display: flex !important;
+    justify-content: space-around !important;
+    flex-wrap: wrap !important;
+  }
 .fa-compass{
     color: #fe424d;
     font-size: 2rem;
+    margin-left: 6rem;
 }
 .navbar-nav a{
-    color: #222222 !important;
+    color: #222222 !important;     
 }
+
+.search{
+    margin-left: 25rem;
+}
+
+.dropdown-toggle {
+    margin-right: 8rem;
+    border: 1px solid grey !important;
+    border-radius: 5rem !important;
+    transition: box-shadow 0.3s ease; /* Adding transition for smooth effect */
+  }
+  
+  .dropdown-toggle:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow only to the bottom on hover */
+  }
+  
+.wonderhome{
+    border: none;
+    background-color: white;
+    margin-right: 1rem;
+    border-radius: 5rem !important;
+    padding: .3rem !important;
+}
+.wonderhome:hover{
+    background-color: rgb(243, 238, 238)
+}
+.golbe{
+    border: none;
+    background-color: white;
+    margin-right: 1rem;
+    border-radius: 1rem !important;
+    padding: .5rem;
+}
+.golbe:hover{
+    background-color: rgb(243, 238, 238) 
+}
+
+/* footer */
 .f-info{
     display: flex;
     flex-wrap: wrap;
@@ -48,7 +90,6 @@ body{
   margin-left: 1rem;
 }
 
-/* footer */
 .fa-facebook:hover{
     color: blue;
 }
@@ -84,8 +125,6 @@ body{
     opacity: 0.15;
     background-color: white;
 }
-
-
 .custom-card {
     height: 20rem;
     width: 18rem;
@@ -96,12 +135,9 @@ body{
     flex-direction: column;
     border-radius: 1rem !important;
 }
-}
-
 .custom-card .card-body {
     flex: 1;
 }
-
 .custom-card .btn {
     margin-bottom: 20px; 
     border-radius: .5rem !important;
@@ -119,10 +155,121 @@ body{
 }
 
 .signup{
-    height: 50vh;
+    height: 30vh;
     width: 100vw;
     background-color: #f4f1f1;
 }
 
+/* side pannel */
 
-    
+#sidePanel {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Hide the panel by default on the right side */
+    width: 250px;
+    height: 100%;
+    background-color: #f0f0f0;
+    transition: right 0.3s ease; /* Add smooth transition for animation */
+    padding: 20px;
+  }
+  
+  #sidePanel.open {
+    right: 0; /* Show the panel when it has the 'open' class */
+  }
+   #openBtn {
+    display: none; /* Initially hide the button */
+  }
+  .fa-bars , .fa-xmark {
+    font-size: xx-large !important; 
+}
+#openBtn, #closeBtn {
+    border: none;
+}
+
+.sidepannel{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.sidepannel a{
+    text-decoration: none;
+    margin-top: 1rem;
+    color: #222;    
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border: 1px solid #ccc;
+  height: 35rem;
+  width: 50rem;
+ overflow: auto; 
+ border-radius: 20px;
+ }
+ .popup-content p {
+  font-weight: 700; /* Adjust the weight as needed */
+}
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+/* Show the button after 576px */
+@media (min-width:300px) and (max-width:767px) {
+    #openBtn {
+      display: block;
+    }
+  }
+  @media (max-width:576px) {
+    .search {
+      margin-left: .2rem;
+    }
+    .navbar-brand {
+      display: none;
+    }
+    .logoname{
+        display: none;
+    }
+  }
+  
+  @media (min-width:576px) and (max-width:768px) {
+    .search {
+      margin-left: 1rem;
+    }
+    .navbar-brand {
+        display: none;
+      }
+      .logoname{
+        display: none;
+    }
+  }
+  @media (min-width:768px) and (max-width:992px) {
+    .search {
+      margin-left: 0.5rem; /* Adjusted margin-right */
+    }
+    .logoname {
+      display: none;
+    }
+  }
+  @media (min-width:992px) and (max-width:1200px) {
+    .search {
+      margin-left: .3rem;
+    }
+    .logoname{
+        display: none;
+    }
+  }
+  @media (min-width:1200px) and (max-width:1400px) {
+    .search {
+      margin-left: 1rem;
+    }
+    .logoname {
+      display: none;
+    }
+  }
+   

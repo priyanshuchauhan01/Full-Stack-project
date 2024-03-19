@@ -1,71 +1,122 @@
-<% layout("layouts/boilerplate") %>
-<body>
-    <div class="row col-sm-4 col-md-8 col-xl-4">
-        <h3>Destination Detail</h3>
-        <img src="<%= listing.image.url %>" alt="Destination Image" class="card-img-top show-img">
-    </div>
+    <% layout("layouts/boilerplate") %>
+    <body>
+        <div class="container-fixed"> <!-- Container for fixed content -->
+        <div class="row col-sm-12 col-md-8 col-xl-4">
+            <h3>Destination Detail</h3>
+            <img src="<%= listing.image.url %>" alt="Destination Image" class="card-img-top show-img">
+        </div>
 
-    <div class="card-body col-sm-4 col-md-10 col-xl-6">
-        <p class="card-text"> <b><%= listing.title %></b></p>
-        <%= listing.description %><br>
+        <div class="card-body col-sm-8 col-md-8 col-xl-6">
+            <p class="card-text"> <b><%= listing.title %></b></p>
+            <%= listing.description %><br>
 
-        <% if (listing.price !== null && listing.price !== undefined && listing.price > 0) { %>
-            <i class="fa-solid fa-money-bill"></i> <b>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night </b><br>
-        <% } else { %>
-            Price not available<br>
-        <% } %>
-
-        <i class="fa-solid fa-earth-americas"></i> <%= listing.location %><br>
-        <i class="fa-solid fa-location-dot"></i> <%= listing.country %><br>
-
-        <!-- Edit Button -->
-        <form method="get" action="/listings/<%= listing._id %>/edit" class="d-inline">
-            <button type="submit" class="btn btn-outline-info">EDIT</button>
-        </form>
-
-        <!-- Delete Button -->
-        <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
-            <button type="submit" class="btn btn-danger">DELETE</button>
-        </form>
-    </div> 
-    <hr class="col-md-8"> 
-    <div class="mb-3 col-md-8">
-        <h3>Rating</h3>
-        <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
-            <div>
-                <label for="rating">Rating</label>
-                <input type="range" id="rating" name="review[rating]" min="1" max="5" class="form-range">
-            </div>
-            <p>Leave comments</p>
-            <div class="mb-2">
-                <label for="comments">Comments</label>
-                <textarea id="comments" name="review[comments]" cols="30" rows="5" class="form-control" required></textarea>
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please provide valid comments</div>
-            </div>
-            <button class="btn btn-outline-dark" type="submit">Submit</button>
-        </form>
-    </div>
-    <br>
-    <hr class="col-md-8">
-    <h3>All Reviews</h3>   
-    <div class="row">
-        <% if (listing.reviews.length > 0) { %>
-            <% for (review of listing.reviews) { %>
-                <div class="card review-card col-xl-2 col-md-4 col-sm-8 ms-1 mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Alex</h5>
-                        <p class="card-text"><%= review.comments %></p>
-                        <p class="card-text">Rating: <b><%= review.rating %></b></p>
-                        <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=Delete">
-                            <button class="btn btn-sm btn-danger">DELETE</button>
-                        </form>
-                    </div>
-                </div>
+            <% if (listing.price !== null && listing.price !== undefined && listing.price > 0) { %>
+                <i class="fa-solid fa-money-bill"></i> <b>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night </b><br>
+            <% } else { %>
+                Price not available<br>
             <% } %>
-        <% } else { %>
-            <p>No Reviews</p>
+
+            <i class="fa-solid fa-earth-americas"></i> <%= listing.location %><br>
+            <i class="fa-solid fa-location-dot"></i> <%= listing.country %><br>
+
+            <!-- Edit Button -->
+            <form method="get" action="/listings/<%= listing._id %>/edit" class="d-inline">
+                <button type="submit" class="btn btn-outline-info">EDIT</button>
+            </form>
+
+            <!-- Delete Button -->
+            <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
+                <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </div> 
+        <hr class="col-md-8"> 
+        <div class="row">
+            <div class="about-house col-md-8 col-sm-12">
+              Welcome to our Marrakech oasis! Indulge in the epitome of luxury at our contemporary 7-bedroom,
+              6-bathroom residence. Spanning 5000m2, with 600m2 of opulent living space, this villa boasts a colossal heated pool,
+              inviting fire pit area, and an expansive garden adorned with over 100 palm trees. Immerse yourself in high-end finishes,
+              a gourmet kitchen, and the comfort of heated floors. Your Moroccan escape begins here – a haven where sophistication meets
+              tranquility.
+              <br><br>
+              <a href="#" onclick="openPopup()">Show More<i class="fa-solid fa-arrow-right"></i></a>
+              <br>
+            </div>
+            <div id="popup" class="popup col-sm-12 col-md-10 col-lg-8">
+              <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <p><h1><b>About this space</b></h1><br>
+                    Welcome to our Marrakech oasis! Indulge in the epitome of luxury at our contemporary 7-bedroom, 6-bathroom residence. Spanning 5000m2, with 600m2 of opulent living space, this villa boasts a colossal heated pool, inviting fire pit area, and an expansive garden adorned with over 100 palm trees. Immerse yourself in high-end finishes, a gourmet kitchen, and the comfort of heated floors. Your Moroccan escape begins here – a haven where sophistication meets tranquility.
+                    <h4><b>The space</b> </h4>
+                    Step into a realm of unparalleled luxury at our Marrakech haven, where every detail captivates your senses. Your journey begins as you traverse a grand driveway, leading to an opulent residence boasting seven bedrooms adorned with king-sized beds, ensuring regal comfort. The heart of indulgence lies in our state-of-the-art kitchen, a culinary haven equipped for the most discerning tastes.
+                    <br><br>
+                    The living rooms, with their expansive double ceilings, invite you to unwind in an ambiance of sophistication and spaciousness. As you step outside, a sprawling garden unfolds, punctuated by over a hundred majestic palm trees, creating a serene oasis. The jewel in our crown is the vast, heated pool, a shimmering expanse of luxury, inviting you to bask in the Moroccan sun.
+                    <br><br>
+                    For culinary enthusiasts, our barbecue area beckons, where flavors come to life amid the enchanting surroundings. Adjacent to this, a soothing jacuzzi promises moments of pure relaxation, harmonizing with the central air conditioner that ensures the perfect climate year-round. Embrace the comfort of floor heating, a touch that transforms every step into a journey of warmth.
+                    <br><br>
+                    This villa transcends the ordinary, weaving a tapestry of luxury that resonates with each space, beckoning you to experience the epitome of refinement in the heart of Marrakech. <br>
+                    <h4><b>Guest access</b></h4>
+                    Guests have access to all the areas of the property. A concierge will be available on-site 24/7 to assist with your basic requests, adding a touch of personalized service to your stay.
+                    
+                   <h4><b>The property is located:</b> </h4> 
+                    3 minutes away from the world famous Oberoy Hotel
+                    5 minutes away from Amelkis Golf and Al Maaden Golf.
+                    8-10 minutes from the city center.
+                    <h4><b>Other things to note</b></h4>
+                    Airport transfer 50 euros
+                    Car rental on request
+                    Activities Quad, dromadaire, tourist outings... ( On request).
+                    Food service:
+                    Breakfast:10 euros| 100 dhs per person per meal
+                    Lunch, dinner:15 euros| 150 dhs per person per meal.
+                    All inclusive: 35 euros| 350 dhs per person per meal.
+                    Daily cleaning service 50 euros| 500 dhs daily.
+                    Pool heating fee 80 euros| 800 dhs daily
+                    <br>
+                    Events can be authorized for an extra fee to be fixed by the host.</p>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        <hr class="col-md-8"> 
+        <div class="mb-3 col-md-8">
+            <h3>Rating</h3>
+            <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
+                <div>
+                    <label for="rating">Rating</label>
+                    <input type="range" id="rating" name="review[rating]" min="1" max="5" class="form-range">
+                </div>
+                <p>Leave comments</p>
+                <div class="mb-2">
+                    <label for="comments">Comments</label>
+                    <textarea id="comments" name="review[comments]" cols="30" rows="5" class="form-control" required></textarea>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide valid comments</div>
+                </div>
+                <button class="btn btn-outline-dark" type="submit">Submit</button>
+            </form>
+        </div>
+        <br>
+        <hr class="col-md-8">
+        <h3>All Reviews</h3>   
+<div class="row">
+    <% if (listing.reviews.length > 0) { %>
+        <% for (review of listing.reviews) { %>
+            <div class="card review-card col-xl-2 col-md-4 col-sm-8 ms-1 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Alex</h5>
+                    <p class="card-text"><%= review.comments %></p>
+                    <p class="card-text">Rating: <b><%= review.rating %></b></p>
+                    <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                        <button class="btn btn-sm btn-danger">DELETE</button>
+                    </form>
+                </div>
+            </div>
         <% } %>
-    </div>
-    
-</body>
+    <% } else { %>
+        <p>No Reviews</p>
+    <% } %>
+</div>
+</div>
+    </body>

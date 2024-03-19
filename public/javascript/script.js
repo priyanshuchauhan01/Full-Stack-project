@@ -30,8 +30,39 @@ function togglePasswordVisibility() {
     }
 }
 
-$(document).ready(function () {
-    setTimeout(function () {
-      $("#successAlert").alert('close');
-    }, 5000);
-  });
+// Get references to the buttons and the side panel
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+const sidePanel = document.getElementById("sidePanel");
+
+// Function to open the side panel
+function openSidePanel() {
+  sidePanel.classList.add("open");
+}
+
+// Function to close the side panel
+function closeSidePanel() {
+  sidePanel.classList.remove("open");
+}
+
+// Add event listeners to the buttons
+openBtn.addEventListener("click", openSidePanel);
+closeBtn.addEventListener("click", closeSidePanel);
+
+// Function to open the popup
+function openPopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "block";
+  }
+  
+  // Function to close the popup
+  function closePopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "none";
+  }
+  
+  // Event listener to open the popup when the button is clicked
+  document.getElementById("openButton").addEventListener("click", openPopup);
+  
+
+  

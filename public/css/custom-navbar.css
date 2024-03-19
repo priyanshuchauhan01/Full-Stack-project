@@ -1,0 +1,8 @@
+/* custom-navbar.css */
+.navbar {
+    height: 5rem;
+    background-color: white;
+    display: flex !important;
+    justify-content: space-around !important;
+    flex-wrap: wrap !important;
+}

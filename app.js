@@ -5,6 +5,7 @@ const flash = require('express-flash');
 const MongoStore = require("connect-mongo");
 const Joi = require('joi');
 const mongoose = require("mongoose");
+
 const Listing = require("./model/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -17,7 +18,8 @@ const User = require("./model/user.js");
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const {isloggedIn} = require("./middleware.js")
-const {saveRedirectUrl} =require("./middleware.js")
+const {saveRedirectUrl} = require("./middleware.js")
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/wanderlust"); 
 
@@ -43,7 +45,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Passport configuration
+// Passport configuration 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -60,7 +62,7 @@ app.get("/listings", wrapAsync(async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
 }));
-
+ 
 // New Route
 app.get("/listings/new", isloggedIn , (req, res) => {
   res.render("listings/new.ejs");
@@ -81,7 +83,7 @@ app.post("/listings", isloggedIn , wrapAsync(async (req, res) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   req.flash("success" , "New Listing Created");
-res.redirect("/listings");
+  res.redirect("/listings");
 }));
 
 // Edit Route
@@ -119,10 +121,8 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 
 const validateReview = (req, res, next) => {
   const { error } = ReviewsSchema.validate(req.body.review);
-
-  if (error) {
+ if (error) {
     const errMsg = error.details.map((el) => el.message).join(', ');
-    console.error('Validation error:', errMsg);
     return res.status(400).send(`Validation error: ${errMsg}`);
   }
   next();
@@ -131,21 +131,22 @@ const validateReview = (req, res, next) => {
 // Reviews route 
 app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res) => {
   const listing = await Listing.findById(req.params.id);
-  const newReview = new Review(req.body.review);
+  if (!listing) {
+    req.flash("error", "Listing not found");
+    return res.redirect("/listings");
+  }const newReview = new Review(req.body.review);
   listing.reviews.push(newReview);
   await listing.save();
   await newReview.save();
-  req.flash("success" , "New Reviewes added");
+  req.flash("success", "New Review added");
   res.redirect(`/listings/${req.params.id}`);
 }));
 
-// Delete Route         
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-  const { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  console.log("listing deleted");
-  req.flash("success", "New Listing Deleted");
-  res.redirect("/listings");
+// Delete Review Route         
+app.delete("/listings/:listingId/reviews/:reviewId", wrapAsync(async (req, res) => {
+  await Review.findByIdAndDelete(req.params.reviewId); // Deleting the review by its ID
+  req.flash("success", "Review Deleted");
+  res.redirect(`/listings/${req.params.listingId}`);
 }));
 
 
@@ -164,13 +165,13 @@ app.post("/login", saveRedirectUrl, passport.authenticate('local', {
   req.flash("success", "Welcome back to Wonder");
   res.redirect(res.locals.redirectUrl || '/listings');
 });
+
 app.post("/signup", wrapAsync(async (req, res) => {
   let { username, email, password } = req.body;
   const newUser = new User({ email, username });
   try {
     // Register the user using Passport
    const registeruser =  await User.register(newUser, password);
-   console.log(registeruser);   
    req.login(registeruser, (err)=>{
     if(err){
       return next(err);
@@ -182,7 +183,7 @@ app.post("/signup", wrapAsync(async (req, res) => {
     console.error(err);
     // Handle registration failure if needed
     req.flash("error", "Registration failed. Please try again.");
-    res.redirect("/signup"); // Redirect back to the signup page in case of an error
+    res.redirect("/signup");
   }
 }));
 
@@ -200,7 +201,6 @@ app.get("/logout" , (req , res , next)=>{
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
 });
-
 // Error handler middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
